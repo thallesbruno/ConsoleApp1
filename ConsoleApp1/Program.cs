@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace ConsoleApp1
 {
@@ -6,7 +7,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            try
+            /* try
             {
                 int n1 = int.Parse(Console.ReadLine());
                 int n2 = int.Parse(Console.ReadLine());
@@ -21,6 +22,26 @@ namespace ConsoleApp1
             catch (FormatException e)
             {
                 Console.WriteLine("Format error." + e.Message);
+            }*/
+
+            FileStream fs = null;
+            try
+            {
+                fs = new FileStream(@"C:\temp\data.txt", FileMode.Open);
+                StreamReader sr = new StreamReader(fs);
+                string line = sr.ReadLine();
+                Console.WriteLine(line);
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                if (fs != null)
+                {
+                    fs.Close();
+                }
             }
         }
     }

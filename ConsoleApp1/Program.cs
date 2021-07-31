@@ -22,7 +22,6 @@ namespace ConsoleApp1
             {
                 Console.WriteLine("Format error." + e.Message);
             }
-            
         }
     }
 }

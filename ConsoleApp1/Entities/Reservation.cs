@@ -1,4 +1,5 @@
 ﻿using System;
+using CSharp_TryCatch.Entities.Exceptions;
 
 namespace CSharp_TryCatch.Entities
 {
@@ -14,6 +15,11 @@ namespace CSharp_TryCatch.Entities
 
         public Reservation(int roomNumber, DateTime checkIn, DateTime checkOut)
         {
+            if (checkOut <= checkIn)
+            {
+                throw new DomainException("Error in reservation: Check-out date must be after check-in date.");
+            }
+
             RoomNumber = roomNumber;
             CheckIn = checkIn;
             CheckOut = checkOut;
@@ -25,22 +31,20 @@ namespace CSharp_TryCatch.Entities
             return (int)duration.TotalDays;
         }
 
-        public string UpdateDates(DateTime checkIn, DateTime checkOut)
+        public void UpdateDates(DateTime checkIn, DateTime checkOut)
         {
             DateTime now = DateTime.Now;
             if (checkIn < now || checkOut < now)
             {
-                return "Error in reservation: Reservation dates must be future dates.";
+                throw new DomainException("Reservation dates must be future dates.");
             }
             if (checkOut <= checkIn)
             {
-                return "Error in reservation: Check-out date must be after check-in date.";
+                throw new DomainException("Check-out date must be after check-in date.");
             }
 
             CheckIn = checkIn;
             CheckOut = checkOut;
-
-            return null;
         }
         public override string ToString()
         {

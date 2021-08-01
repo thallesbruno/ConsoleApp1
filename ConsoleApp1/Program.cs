@@ -68,18 +68,14 @@ namespace ConsoleApp1
                 Console.Write("Check-out date (dd/MMM/yyyy): ");
                 checkOut = DateTime.Parse(Console.ReadLine());
 
-                DateTime now = DateTime.Now;
-                if (checkIn < now || checkOut < now)
+                string error = reservation.UpdateDates(checkIn, checkOut);
+
+                if (error != null)
                 {
-                    Console.WriteLine("Error in reservation: Reservation dates must be future dates.");
-                }
-                else if (checkOut <= checkIn)
-                {
-                    Console.WriteLine("Error in reservation: Check-out date must be after check-in date.");
+                    Console.WriteLine("Error in reservation: " + error);
                 }
                 else
                 {
-                    reservation.UpdateDates(checkIn, checkOut);
                     Console.WriteLine("Reservation: " + reservation);
                 }
             }
